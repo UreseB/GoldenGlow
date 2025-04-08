@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <title>Rreth nesh</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Rubik+Broken+Fax&family=Rubik+Lines&display=swap");
+  </style>
+  <style>
+
+  </style>
+  <link rel="stylesheet" href="css/about-us.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <header>
+
+
+    <div class="navigimi">
+      <img src="img/loggo.png" alt="" class="logo">
+      <h1><a class="header-link" href="/">Golden Glow</a></h1>
+      <ul id="linqet_e_navigimit">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Our products</a></li>
+        <li><a href="contact-us.html">Contact us</a></li>
+        <li><a href="about-us.html">About us</a></li>
+        <div class="button11" id="button-5">
+          <div id="translate"></div>
+          <a class="signupBtn" href="log-in.html"> Log in</a>
+        </div>
+      </ul>
+      <i id="bar" class="fas fa-bars" aria-hidden="true"></i>
+    </div>
+
+    
+  
+    </nav>
+    <i id="bar" class="fas fa-bars" aria-hidden="true"></i>
+  </header>
+
+    <section class="section-staff">
+        <div class="row">
+            <h1 style="color: black;">Our staff</h1>
+        </div>
+        <div class="rows">
+            <div class="column c-1-3">
+                <blockquote>
+                    As the manager of "Golden Glow", I take care of sales, marketing, and customer experience every day. I manage campaigns, collaborate with influencers, and make sure the site is easy to use. I love following trends and creating a space where customers feel inspired and happy with their choices.
+                    <cite><img src="img/girl.png" alt="Staff 1">Uresë Bytyçi</cite>
+                </blockquote>
+            </div>
+            <div class="column c-1-3 space-between">
+                <blockquote>
+                  As the manager of "Golden Glow", I focus on sales, marketing, and customer satisfaction. I work to bring product offerings, optimize the site, and create strategies to drive growth. Every day is a new opportunity to score and see a great experience.
+                    <cite><img src="img/girl.png" alt="Staff 2">Fjollë Bytyçi</cite>
+                </blockquote>
+            </div>
+        </div>
+        
+    </section>
+
+
+  <section class="image-alignment">
+    <h3>Team at work</h3>
+    <div class="team-content">
+
+      <img src="img/team-right.jpg" alt="Ekipi në të djathtë" />
+      <p>
+        At Golden Glow, our team is a blend of passionate beauty enthusiasts, skincare experts, and creative innovators
+        dedicated to bringing you the best in skincare, body care, and makeup.
+      </p>
+    </div>
+    <div class="team-content">
+      <p>
+        We share a common goal: to empower you with products that celebrate your individuality and enhance your natural
+        beauty. Our experts work tirelessly to curate high-quality products that align with our values of care,
+        inclusivity, and excellence.
+      </p>
+    </div>
+    <div class="team-content">
+      <p>
+        Every glow-up starts with a strong foundation, and that’s exactly what our team strives to provide – exceptional
+        service, trusted expertise, and a commitment to helping you feel radiant every day.
+      </p>
+    </div>
+    <div class="team-content">
+      <p>
+        Together, we’re here to inspire confidence and redefine beauty, one glow at a time.
+      </p>
+    </div>
+  </section>
+
+
+
+  <button class="scroll-top-btn">↑</button>
+
+  <footer>
+		<div class="art">
+			<div class="content">
+				<section>
+					<a href="index.html">Home</a>
+					<a href="products.html">Products</a>
+          <a href="contact-us.html">Contact us</a>
+          <a href="about-us.html">About us</a>
+					
+				</section>
+				
+				<section class="section_footer">
+					<header>More and more</header>
+					<form action="">
+						<input type="email" placeholder="Your email" id="">
+						<button class="Btn"><a href="https://www.youtube.com/"></a></button>
+					</form>
+					<div class="social">
+						<a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+						<a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+						<a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+						<a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+						<a href="https://www.telegram.com/"><i class="fab fa-telegram-plane"></i></a>
+					</div>
+				</section>
+			</div>
+			<div class="notice">
+				Copyright protected &copy;
+				<strong>All rights reserved</strong>
+			</div>
+		</div>
+	</footer>
+
+  <script>
+    $(document).ready(function () {
+
+      const bar = $("#bar");
+      const navLinks = $("#linqet_e_navigimit");
+
+      bar.click(function () {
+        const isHidden = navLinks.css("right") === "-300px";
+        navLinks.css("right", isHidden ? "0" : "-300px");
+      });
+      $(".details-btn").click(function () {
+        const name = $(this).data("name");
+        const role = $(this).data("role");
+        alert(`${name} is our ${role}`);
+      });
+
+      $(".description").hide().fadeIn(1500);
+
+      $(".team-member").hide();
+      $(".team-member").each(function (index) {
+        $(this)
+          .delay(300 * index)
+          .slideDown(1000);
+      });
+
+      const $scrollTopBtn = $(".scroll-top-btn");
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 200) {
+          $scrollTopBtn.fadeIn();
+        } else {
+          $scrollTopBtn.fadeOut();
+        }
+      });
+
+      $scrollTopBtn.click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 600);
+      });
+
+      $("header").hover(
+        function () {
+          $(this).animate(
+            { backgroundColor: "#e60073", padding: "0px" },
+            500
+          );
+        },
+        function () {
+          $(this).animate(
+            { backgroundColor: "#ff6699", padding: "0px" },
+            500
+          );
+        }
+      );
+    });
+  </script>
+  <script src="js/canvas.js"></script>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
