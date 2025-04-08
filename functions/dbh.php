@@ -17,8 +17,7 @@ if($conn) {
 
     $sql = "INSERT INTO users (username, email, password) VALUES ('uresa', 'uresa@gmail.com', 'uresa123')";
     $conn->execute_query($sql);
-
-    $sql = "UPDATE users SET password='uresa456' WHERE username='uresa'";
+    $sql = "INSERT INTO users (username, email, password) VALUES ('fjolla', 'fjolla@gmail.com', 'fjollafjolla')";
     $conn->execute_query($sql);
 }
 else{
