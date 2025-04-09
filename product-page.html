@@ -12,6 +12,8 @@
   </style>
   <link rel="stylesheet" href="css/product-page.css">
   <link rel="stylesheet" href="css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -201,5 +203,59 @@
 </script>
 <script src="js/canvas.js"></script>
 <script src="js/index.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Set the name in the input field to the name from localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user && user.name) {
+    document.getElementById("reviewerName").value = user.name;
+  }
+
+  // Handle review submission
+  document.getElementById("reviewForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("reviewerName").value;
+    const content = document.getElementById("reviewContent").value;
+
+    if (name && content) {
+      const review = {
+        name: name,
+        content: content,
+      };
+
+      // Send review to the mock API endpoint
+      fetch("https://67f6c32042d6c71cca6333dc.mockapi.io/api/v1/reviews", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(review),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Review submitted:", data);
+
+          // Show a success alert
+          alert("Review added successfully!");
+
+          // Clear the form after successful submission
+          document.getElementById("reviewForm").reset();
+
+          // Refresh the reviews section
+          refreshReviews();
+        })
+        .catch((error) => {
+          console.error("Error submitting review:", error);
+        });
+    }
+  });
+
+  // Function to refresh the reviews
+ 
+});
+
+
+</script>
 
 </html>
