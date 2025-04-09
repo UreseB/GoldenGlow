@@ -12,6 +12,8 @@
   </style>
   <link rel="stylesheet" href="css/log-in.css">
   <link rel="stylesheet" href="css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -89,25 +91,38 @@
 	</footer>
   
 </body>
-<script>
-  const form = document.getElementById("loginForm");
 
-  form.addEventListener("submit", function (event) {
+<script src="js/canvas.js"></script>
+
+<script src="js/index.js"></script>
+<script>
+  const loginForm = document.getElementById("loginForm");
+
+  loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    if (!email || !password) {
-      alert("Please fill in all fields!");
-    } else {
-      alert("Log in was done successfully!");
-      window.location.href = "index.html";
-    }
-  });
-</script>
-<script src="js/canvas.js"></script>
+    axios.get('https://67f6c32042d6c71cca6333dc.mockapi.io/api/v1/users')
+      .then(function (response) {
+        const users = response.data;
+        const user = users.find(user => user.email === email && user.password === password);
 
-<script src="js/index.js"></script>
+        if (user) {
+          alert('Logged in')
+          localStorage.setItem("user", JSON.stringify(user)); 
+          window.location.href = 'index.html';
+        } else {
+          alert('Invalid email or password');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+    })
+</script>
 
 </html>
