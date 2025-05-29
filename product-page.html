@@ -12,12 +12,12 @@
   </style>
   <link rel="stylesheet" href="css/product-page.css">
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/reviews.css">
+
 </head>
 
 <body>
   <header>
-
-
     <div class="navigimi">
       <img src="img/loggo.png" alt="" class="logo">
       <h1><a class="header-link" href="/">Golden Glow</a></h1>
@@ -33,11 +33,6 @@
       </ul>
       <i id="bar" class="fas fa-bars" aria-hidden="true"></i>
     </div>
-
-    
-  
-    </nav>
-    <i id="bar" class="fas fa-bars" aria-hidden="true"></i>
   </header>
 
   <main style="margin-top: 100px;">
@@ -93,22 +88,17 @@
       </div>
     </section>
 
-
-
+    <!-- Reviews Section -->
     <section class="reviews">
+      <h3>Reviews</h3>
+      <div id="review-list"></div>
 
-
-      <form class="review-form" id="reviewForm">
-        <h3>Add a Review:</h3>
-        <input type="text" id="reviewerName" placeholder="Your name" required />
-        <textarea id="reviewContent" rows="4" placeholder="Your rating and review" required></textarea>
-
-        <button type="submit">Confirm</button>
-      </form>
+      <input type="text" id="review-username" placeholder="Name" required>
+      <input type="number" id="review-rating" min="1" max="5" placeholder="Review" required>
+      <textarea id="review-comment" placeholder="Comment" required></textarea>
+      <button onclick="submitReview('1')">Send Review</button>
     </section>
 
-    
-    
     <footer>
       <div class="art">
         <div class="content">
@@ -117,9 +107,8 @@
             <a href="products.html">Products</a>
             <a href="contact-us.html">Contact us</a>
             <a href="about-us.html">About us</a>
-            
           </section>
-          
+
           <section class="section_footer">
             <header>More and more</header>
             <form action="">
@@ -143,8 +132,8 @@
     </footer>
   </main>
 
-
 </body>
+
 <script>
   function addToCart() {
     const product = {
@@ -155,30 +144,9 @@
     };
 
     localStorage.setItem("cart", JSON.stringify(product));
-
     alert("Product added to cart!");
-
     window.location.href = "checkout.html";
   }
-
-  document
-    .getElementById("reviewForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("reviewerName").value;
-      const content = document.getElementById("reviewContent").value;
-
-      if (name && content) {
-        const review = document.createElement("div");
-        review.classList.add("review");
-        review.innerHTML = `<bold>${name}:</bold><p>${content}</p>`;
-        document.getElementById("reviews-list").appendChild(review);
-
-        document.getElementById("reviewForm").reset();
-      }
-    });
-
 
   function findClosestStore(userLat, userLon, stores) {
     let closest = null;
@@ -199,6 +167,56 @@
 
   window.addEventListener("load", fetchLocation);
 </script>
+
+<!-- Reviews script -->
+<script>
+  const apiBase = "https://67f6c32042d6c71cca6333dd.mockapi.io/reviews";
+
+  async function loadReviews(productId) {
+    const response = await fetch(`${apiBase}?productId=${productId}`);
+    const reviews = await response.json();
+    displayReviews(reviews);
+  }
+
+  function displayReviews(reviews) {
+    const container = document.getElementById("review-list");
+    container.innerHTML = "";
+    reviews.forEach(review => {
+      const div = document.createElement("div");
+      div.classList.add("review");
+      div.innerHTML = `<strong>${review.username}</strong> (${review.rating}/5): <p>${review.comment}</p>`;
+      container.appendChild(div);
+    });
+  }
+
+  async function submitReview(productId) {
+    const username = document.getElementById("review-username").value;
+    const rating = document.getElementById("review-rating").value;
+    const comment = document.getElementById("review-comment").value;
+
+    if (!username || !rating || !comment) {
+      alert("Ju lutem plotësoni të gjitha fushat.");
+      return;
+    }
+
+    await fetch(apiBase, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId, username, rating, comment })
+    });
+
+    document.getElementById("review-username").value = "";
+    document.getElementById("review-rating").value = "";
+    document.getElementById("review-comment").value = "";
+
+    loadReviews(productId);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    loadReviews("1");
+  });
+</script>
+
 <script src="js/canvas.js"></script>
 <script src="js/index.js"></script>
 
